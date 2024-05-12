@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Category</title>
+    <style>
+        table{
+            width: 50%;
+        }
+        table, th, td{
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+    </style>
+</head>
+<body>
+   <h1>Category</h1>
+   <hr>
+   <form th:action="@{/category/save}" method="post" th:object="${category}">
+       <label for="name">
+           Name
+           <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;"></span>
+       </label>
+       <!--Hidden for filed id when client update data form ui-->
+       <input type="hidden" th:field="*{id}">
+       <input th:field="*{name}" type="text" id="name">
+       <br><br>
+       <input type="submit" value="Save">
+   </form>
+   <hr>
+   <table>
+       <thead>
+       <tr>
+           <th>Id</th>
+           <th>Name</th>
+           <th>Action</th>
+       </tr>
+       </thead>
+       <tbody>
+       <tr th:each="cate : ${categories}" th:object="${cate}">
+           <td th:text="*{id}"></td>
+           <td th:text="*{name}"></td>
+           <td>
+<!-- id(dynamic) is a pathvariable  /category/100/delete-->
+               <a th:href="@{/category/{id}/delete(id=*{id})}">Delete</a>
+               <a th:href="@{/category/{id}/edit(id=*{id})}">Edit</a>
+               <a th:href="@{/category/{id}(id=*{id})}">View</a>
+
+           </td>
+       </tr>
+       </tbody>
+   </table>
+
+</body>
+</html>

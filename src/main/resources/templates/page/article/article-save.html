@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Article Save</title>
+</head>
+<body>
+<h1>Crete new article</h1>
+<hr>
+<form th:action="@{/article/save}" method="post" th:object="${article}">
+
+    <label for="title">Title</label>
+    <input type="text" id="title" th:field="*{title}">
+    <br><br>
+    <label for="description">Description</label>
+    <textarea id="description" cols="30" rows="5" th:field="*{description}"></textarea>
+    <br><br>
+    <label for="category">Category</label>
+    <select id="category" th:field="*{category.id}">
+     <option value="0" disabled selected>Select Category</option>
+        <option th:each="cate : ${categories}"
+                th:text="${cate.name}"
+                th:value="${cate.id}"></option>
+    </select>
+    <br><br>
+    <input type="button" value="Save">
+
+</form>
+</body>
+</html>
